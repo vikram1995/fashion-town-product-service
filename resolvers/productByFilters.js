@@ -1,4 +1,6 @@
-import { findData } from "../../databaseUtils/dbOperations";
+import { findData } from "../databaseUtils/dbOperations";
+import * as fs from "fs";
+import config from "../config";
 
 const injectInOperator = (filters) => {
   for (const [key, value] of Object.entries(filters)) {
@@ -7,6 +9,17 @@ const injectInOperator = (filters) => {
     }
   }
   console.log(filters);
+};
+
+const logAppliedFilters = (filters) => {
+  const appliedFilterString = JSON.stringify(filters) + "\n";
+  fs.appendFile(
+    config.appliedFilterLogFilePath,
+    appliedFilterString,
+    function (err) {
+      if (err) throw err;
+    }
+  );
 };
 
 const getLimitAndOffset = (filters) => {
@@ -25,6 +38,7 @@ const getLimitAndOffset = (filters) => {
 
 export async function productByFilters(filters) {
   const { limit, offset } = getLimitAndOffset(filters);
+  logAppliedFilters(filters);
   injectInOperator(filters);
   try {
     const productsAndCount = await findData({ ...filters }, limit, offset);

@@ -1,4 +1,4 @@
-import { findDataOrderBy } from "../../databaseUtils/dbOperations";
+import { findDataOrderBy } from "../databaseUtils/dbOperations";
 
 export const getProductOrderBy = async (orderBy,limit) => {
   console.log(orderBy, limit);

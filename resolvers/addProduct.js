@@ -1,4 +1,4 @@
-import { insertData } from "../../databaseUtils/dbOperations";
+import { insertData } from "../databaseUtils/dbOperations";
 const moment = require("moment");
 
 const insertExtraData = (productDetails) => {

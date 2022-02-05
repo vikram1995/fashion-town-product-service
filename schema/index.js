@@ -24,9 +24,7 @@ export default gql`
   }
 
   type Query {
-    productById(product_id: String): Product
     productBySearchInput(searchInput: String): [Product]
-    products: [Product]
     getProductOrderBy(orderBy: String, limit: Int): [Product]
     productByFilters(
       product_id: String
